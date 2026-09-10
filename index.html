@@ -1,0 +1,938 @@
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Restaurant | Multi-Cuisine Dining, Party Hall &amp; Delivery in Khambhalia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: { DEFAULT: '#7A1F2B', dark: '#571620', light: '#9C3341' },
+                        turmeric: { DEFAULT: '#C98A2E', dark: '#A66F22', light: '#E3AE5E' },
+                        sand: { DEFAULT: '#F7EFE2', dark: '#EDE0CB' },
+                        ink: '#2B211B',
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        body: ['"Work Sans"', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background-color: #F7EFE2;
+            color: #2B211B;
+        }
+        .font-display { font-family: 'Fraunces', serif; }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass-panel {
+            background: rgba(247, 239, 226, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(122, 31, 43, 0.08);
+        }
+
+        .menu-tab {
+            padding: 0.55rem 1.15rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #EDE0CB;
+            background: #FFFFFF;
+            color: #5A4B3B;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .menu-tab.is-active {
+            background: #7A1F2B;
+            border-color: #7A1F2B;
+            color: #FFFFFF;
+        }
+
+        .menu-leader {
+            flex: 1 1 auto;
+            border-bottom: 1px dotted #C9BBA3;
+            margin: 0 0.6rem;
+            transform: translateY(-4px);
+            min-width: 0.75rem;
+        }
+
+        .veg-dot {
+            width: 11px;
+            height: 11px;
+            border: 1.5px solid #2F7A3D;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .veg-dot::after {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 9999px;
+            background: #2F7A3D;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased text-ink selection:bg-turmeric-light/40 selection:text-maroon-dark">
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 glass-panel">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+        <a href="#" class="font-display text-xl font-semibold tracking-tight text-maroon-dark flex items-center gap-2">
+            <iconify-icon icon="solar:leaf-linear" width="22" class="text-turmeric-dark"></iconify-icon>
+            Vaibhav Restaurant
+        </a>
+
+        <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-ink/70">
+            <a href="#menu" class="hover:text-maroon transition-colors">Menu</a>
+            <a href="#about" class="hover:text-maroon transition-colors">About</a>
+            <a href="#party-hall" class="hover:text-maroon transition-colors">Party Hall</a>
+            <a href="#catering" class="hover:text-maroon transition-colors">Catering</a>
+            <a href="#reviews" class="hover:text-maroon transition-colors">Reviews</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <a href="login.php"
+               class="hidden md:flex items-center gap-2 px-4 py-2 text-xs font-medium border border-maroon/20 rounded-full text-maroon-dark hover:bg-maroon/5 transition-all">
+                <iconify-icon icon="solar:login-2-linear" width="16"></iconify-icon>
+                Login
+            </a>
+
+            <a href="#book"
+               class="hidden md:flex bg-maroon text-white px-5 py-2 text-xs font-medium rounded-full transition-all hover:bg-maroon-dark hover:shadow-md">
+                Book a Table
+            </a>
+
+            <button id="menuToggle" class="md:hidden text-maroon-dark" aria-label="Toggle menu" type="button">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="24"></iconify-icon>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="md:hidden hidden fixed top-16 left-0 right-0 bg-white border-b border-sand-dark shadow-lg z-50">
+    <div class="flex flex-col p-6 space-y-4 text-sm font-medium text-ink/80">
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#party-hall">Party Hall</a>
+        <a href="#catering">Catering</a>
+        <a href="#reviews">Reviews</a>
+        <a href="login.php">Login</a>
+        <a href="#book" class="text-maroon-dark font-semibold">Book a Table</a>
+    </div>
+</div>
+
+<!-- Floating Action Buttons -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+    <a href="https://www.zomato.com" target="_blank" rel="noopener" aria-label="Order on Zomato"
+       class="w-12 h-12 bg-[#E23744] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform hover:shadow-xl">
+        <!-- TODO: replace with this restaurant's actual Zomato listing link -->
+        <iconify-icon icon="simple-icons:zomato" width="20"></iconify-icon>
+    </a>
+    <a href="https://wa.me/919876543210?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Vaibhav%20Restaurant" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"
+       class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform hover:shadow-xl">
+        <iconify-icon icon="simple-icons:whatsapp" width="20"></iconify-icon>
+    </a>
+    <a href="tel:+919876543210" aria-label="Call the restaurant"
+       class="w-12 h-12 bg-maroon text-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform hover:shadow-xl">
+        <iconify-icon icon="solar:phone-linear" width="22"></iconify-icon>
+    </a>
+</div>
+
+<main>
+
+    <!-- Hero Section -->
+    <header class="relative w-full pt-32 pb-20 md:pt-40 md:pb-28 px-6 overflow-hidden bg-sand">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+            <div class="space-y-7">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#2F7A3D]/25 bg-[#2F7A3D]/5">
+                    <span class="veg-dot"></span>
+                    <span class="text-xs font-medium text-[#2F7A3D] tracking-wide">100% Pure Vegetarian Kitchen</span>
+                </div>
+                <h1 class="font-display text-4xl md:text-6xl font-semibold text-maroon-dark leading-[1.1]">
+                    Where Khambhalia Comes to Eat Together
+                </h1>
+                <p class="text-ink/70 text-lg font-light max-w-lg leading-relaxed">
+                    Generous Gujarati thalis, sizzling Chinese plates, and comforting South Indian favourites — cooked fresh every day, whether you're dining in, hosting a celebration, or ordering home.
+                </p>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
+                    <a href="#menu" class="w-full sm:w-auto px-8 py-3.5 bg-maroon hover:bg-maroon-dark text-white text-sm font-medium rounded-full transition-all shadow-md text-center">
+                        View Full Menu
+                    </a>
+                    <a href="https://www.zomato.com" target="_blank" rel="noopener" class="w-full sm:w-auto px-8 py-3.5 bg-[#E23744] hover:bg-[#c92e3a] text-white text-sm font-medium rounded-full transition-all shadow-md flex items-center justify-center gap-2">
+                        <iconify-icon icon="simple-icons:zomato" width="16"></iconify-icon>
+                        Order on Zomato
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute inset-0 bg-turmeric/15 translate-x-4 translate-y-4 rounded-[2rem]"></div>
+               
+
+<!!   <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" />
+ <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+                     alt="Warm, welcoming dining room at Vaibhav Restaurant" class="relative rounded-[2rem] w-full h-[380px] md:h-[460px] object-cover shadow-lg border border-white/60">
+
+                <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-sand-dark flex items-center gap-4">
+                    <div class="w-12 h-12 bg-turmeric-light/30 text-turmeric-dark rounded-full flex items-center justify-center">
+                        <iconify-icon icon="solar:star-bold" width="22"></iconify-icon>
+                    </div>
+                    <div>
+                        <p class="text-xs text-ink/50 font-medium">Loved locally</p>
+                        <p class="text-lg font-semibold text-maroon-dark font-display">A Khambhalia favourite</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Intro Features -->
+    <section class="py-16 bg-white border-y border-sand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-maroon/10 rounded-full flex items-center justify-center mx-auto text-maroon">
+                        <iconify-icon icon="solar:bowl-linear" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-ink font-display">Multi-Cuisine Menu</h3>
+                    <p class="text-sm text-ink/60 leading-relaxed">Gujarati thalis, Punjabi curries, Chinese plates and South Indian favourites, all under one roof.</p>
+                </div>
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-turmeric/15 rounded-full flex items-center justify-center mx-auto text-turmeric-dark">
+                        <iconify-icon icon="solar:buildings-linear" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-ink font-display">Party &amp; Banquet Hall</h3>
+                    <p class="text-sm text-ink/60 leading-relaxed">A dedicated hall for birthdays, engagements and family celebrations, right here in Khambhalia.</p>
+                </div>
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-[#2F7A3D]/10 rounded-full flex items-center justify-center mx-auto text-[#2F7A3D]">
+                        <iconify-icon icon="solar:map-point-linear" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-ink font-display">Doorstep Delivery</h3>
+                    <p class="text-sm text-ink/60 leading-relaxed">Can't make it in? Order our full menu for delivery across Khambhalia through Zomato.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 bg-sand">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <h2 class="font-display text-3xl md:text-4xl font-semibold text-maroon-dark leading-tight">
+                    Rooted in Khambhalia, Cooked With Care
+                </h2>
+                <p class="text-ink/70 leading-relaxed">
+                    Vaibhav Restaurant has grown into one of Khambhalia's go-to dining spots — the kind of place where regulars know the staff by name and first-timers leave planning their next visit. From a comforting Gujarati thali to a quick Indo-Chinese plate the kids will actually finish, every dish leaves our kitchen the way it would at home: fresh, generous and without shortcuts.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:leaf-linear" class="text-[#2F7A3D] mt-0.5" width="20"></iconify-icon>
+                        <span class="text-sm font-medium text-ink/80">Fresh ingredients, prepared daily</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:hearts-linear" class="text-maroon mt-0.5" width="20"></iconify-icon>
+                        <span class="text-sm font-medium text-ink/80">Warm, family-friendly service</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:shield-check-linear" class="text-turmeric-dark mt-0.5" width="20"></iconify-icon>
+                        <span class="text-sm font-medium text-ink/80">100% vegetarian kitchen</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-5">
+                <div class="bg-white rounded-3xl p-10 border border-sand-dark shadow-sm relative">
+                    <iconify-icon icon="solar:quote-up-bold" width="36" class="text-turmeric/40"></iconify-icon>
+                    <p class="font-display text-xl text-maroon-dark leading-snug mt-4">
+                        "Good food is simple — fresh ingredients, an honest recipe, and someone who's genuinely happy to serve it to you."
+                    </p>
+                    <p class="text-sm text-ink/50 mt-4">— Vaibhav Restaurant</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 px-6 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14 space-y-4">
+                <h2 class="font-display text-3xl md:text-4xl font-semibold text-maroon-dark">Our Menu</h2>
+                <p class="text-ink/60 text-sm max-w-xl mx-auto">A full spread across six kitchens — pick a category to explore.</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
+                <button type="button" data-cat="thali" class="menu-tab is-active">Gujarati Thali</button>
+                <button type="button" data-cat="northindian" class="menu-tab">Punjabi &amp; North Indian</button>
+                <button type="button" data-cat="chinese" class="menu-tab">Chinese</button>
+                <button type="button" data-cat="southindian" class="menu-tab">South Indian</button>
+                <button type="button" data-cat="starters" class="menu-tab">Starters &amp; Snacks</button>
+                <button type="button" data-cat="beverages" class="menu-tab">Beverages &amp; Shakes</button>
+            </div>
+
+            <div id="menuPanels">
+
+                <ul class="menu-panel grid grid-cols-1 md:grid-cols-2 gap-x-10" data-cat="thali">
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Vaibhav Special Thali</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹239</span></div>
+                        <p class="text-xs text-ink/50 mt-1 pl-[19px]">Unlimited servings — 3 sabzi, dal, kadhi, rice, rotli, farsan &amp; sweet</p>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Kathiyawadi Thali</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹259</span></div>
+                        <p class="text-xs text-ink/50 mt-1 pl-[19px]">A spicier, Saurashtra-style spread with traditional preparations</p>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Dal Dhokli</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹139</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Sev Tameta Nu Shaak</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹129</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark md:border-b-0">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Handvo (per plate)</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹99</span></div>
+                    </li>
+                </ul>
+
+                <ul class="menu-panel hidden grid grid-cols-1 md:grid-cols-2 gap-x-10" data-cat="northindian">
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Paneer Butter Masala</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹2199</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Dal Makhani</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹189</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Kadai Paneer</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹209</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Malai Kofta</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹2199</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Butter Naan</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹45</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark md:border-b-0">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Jeera Rice</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹1499</span></div>
+                    </li>
+                </ul>
+
+                <ul class="menu-panel hidden grid grid-cols-1 md:grid-cols-2 gap-x-10" data-cat="chinese">
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Veg Manchurian (Dry)</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹179</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Veg Hakka Noodles</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹169</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Veg Fried Rice</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹159</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Chilli Paneer</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹199</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark md:border-b-0">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Veg Spring Rolls</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹1499</span></div>
+                    </li>
+                </ul>
+
+                <ul class="menu-panel hidden grid grid-cols-1 md:grid-cols-2 gap-x-10" data-cat="southindian">
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Masala Dosa</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹119</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Mysore Masala Dosa</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹139</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Plain Uttapam</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹109</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Idli Sambhar (2 pcs)</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹89</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark md:border-b-0">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Medu Vada (2 pcs)</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹99</span></div>
+                    </li>
+                </ul>
+
+                <ul class="menu-panel hidden grid grid-cols-1 md:grid-cols-2 gap-x-10" data-cat="starters">
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Paneer Tikka</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹229</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Cheese Corn Balls</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹189</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Veg Manchow Soup</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹109</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Sev Puri</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹79</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark md:border-b-0">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Pani Puri</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹79</span></div>
+                    </li>
+                </ul>
+
+                <ul class="menu-panel hidden grid grid-cols-1 md:grid-cols-2 gap-x-10" data-cat="beverages">
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Masala Chaas</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹39</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Fresh Lime Soda</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹59</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Mango Shake</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹89</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Cold Coffee</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹89</span></div>
+                    </li>
+                    <li class="py-3 border-b border-sand-dark md:border-b-0">
+                        <div class="flex items-baseline gap-2"><span class="veg-dot"></span><span class="font-medium">Badam Milk</span><span class="menu-leader"></span><span class="font-semibold text-maroon whitespace-nowrap">₹79</span></div>
+                    </li>
+                </ul>
+
+            </div>
+            <p class="text-center text-xs text-ink/40 mt-10">Menu items and prices shown are indicative for this preview and photos will be added once finalised.</p>
+        </div>
+    </section>
+
+    <!-- Order Online / Zomato Section -->
+    <section class="py-16 px-6 bg-[#7A1F2B]">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+            <div class="space-y-2">
+                <h2 class="font-display text-2xl md:text-3xl font-semibold text-white">Also Available on Zomato</h2>
+                <p class="text-white/70 text-sm max-w-md">Prefer eating in? We deliver our full menu straight to your door, anywhere in Khambhalia.</p>
+            </div>
+            <a href="https://www.zomato.com" target="_blank" rel="noopener"
+               class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#E23744] hover:bg-white hover:text-[#E23744] text-white text-sm font-medium rounded-full transition-all shadow-md shrink-0">
+                <iconify-icon icon="simple-icons:zomato" width="18"></iconify-icon>
+                Order on Zomato
+            </a>
+        </div>
+    </section>
+
+    <!-- Party Hall Section -->
+    <section id="party-hall" class="py-24 px-6 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="absolute inset-0 bg-sand-dark translate-x-4 translate-y-4 rounded-3xl"></div>
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=80" alt="Vaibhav Restaurant's party and banquet hall" class="relative rounded-3xl w-full h-[460px] object-cover shadow-lg border border-sand-dark">
+
+                    <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-sand-dark flex items-center gap-4">
+                        <div class="w-12 h-12 bg-turmeric-light/30 text-turmeric-dark rounded-full flex items-center justify-center">
+                            <iconify-icon icon="solar:users-group-rounded-linear" width="24"></iconify-icon>
+                        </div>
+                        <div>
+                            <p class="text-xs text-ink/50 font-medium">Seating</p>
+                            <p class="text-xl font-semibold text-maroon-dark font-display">Up to 120 Guests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/2 space-y-8">
+                    <div>
+                        <h2 class="font-display text-3xl md:text-5xl font-semibold text-maroon-dark leading-tight">Celebrate With Us</h2>
+                    </div>
+                    <p class="text-ink/70 leading-relaxed">
+                        Our banquet hall is ready for birthdays, engagements, kitty parties and family get-togethers — with the same food you love from our regular menu, served for your whole guest list.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-8">
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-[#2F7A3D]" width="20"></iconify-icon>
+                            <span class="text-sm font-medium text-ink/80">Fully Air-Conditioned Hall</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-[#2F7A3D]" width="20"></iconify-icon>
+                            <span class="text-sm font-medium text-ink/80">Sound System &amp; Mic Setup</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-[#2F7A3D]" width="20"></iconify-icon>
+                            <span class="text-sm font-medium text-ink/80">Custom Decoration on Request</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-[#2F7A3D]" width="20"></iconify-icon>
+                            <span class="text-sm font-medium text-ink/80">Ample Parking Space</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="#book" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-maroon text-white rounded-full font-medium hover:bg-maroon-dark transition-colors shadow-md">
+                            Check Availability
+                            <iconify-icon icon="solar:arrow-right-linear" width="18"></iconify-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catering Section -->
+    <section id="catering" class="py-24 px-6 bg-sand border-t border-sand-dark">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 space-y-3">
+                <h2 class="font-display text-3xl md:text-4xl font-semibold text-maroon-dark">Catering For Your Events</h2>
+                <p class="text-ink/60 text-sm max-w-xl mx-auto">Customisable per-plate menus for functions of any size. We bring the Vaibhav kitchen to your venue.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl p-8 border border-sand-dark shadow-sm flex flex-col">
+                    <h3 class="text-xl font-semibold text-ink mb-2 font-display">Basic</h3>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-semibold text-ink">₹1499</span>
+                        <span class="text-ink/50 text-sm">/ plate</span>
+                    </div>
+                    <p class="text-ink/60 text-sm mb-6 pb-6 border-b border-sand-dark">Perfect for small family gatherings.</p>
+                    <ul class="space-y-4 flex-1 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>2 Starters</li>
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>2 Main Courses</li>
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>Dal, Rice &amp; Rotli</li>
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>1 Sweet</li>
+                    </ul>
+                    <a href="#book" class="w-full block text-center py-3 px-4 rounded-xl border border-sand-dark text-ink font-medium hover:bg-sand transition-colors">Select Basic</a>
+                </div>
+
+                <div class="bg-maroon-dark rounded-3xl p-8 shadow-xl flex flex-col relative transform md:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-turmeric text-white text-[10px] font-semibold px-3 py-1 rounded-full">
+                        Most Popular
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2 font-display">Popular</h3>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-semibold text-white">₹2199</span>
+                        <span class="text-white/60 text-sm">/ plate</span>
+                    </div>
+                    <p class="text-white/70 text-sm mb-6 pb-6 border-b border-white/15">Ideal for weddings and larger functions.</p>
+                    <ul class="space-y-4 flex-1 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-white/85"><iconify-icon icon="solar:check-circle-linear" class="text-turmeric-light mt-0.5" width="18"></iconify-icon>3 Starters + Live Counter</li>
+                        <li class="flex items-start gap-3 text-sm text-white/85"><iconify-icon icon="solar:check-circle-linear" class="text-turmeric-light mt-0.5" width="18"></iconify-icon>3 Main Courses</li>
+                        <li class="flex items-start gap-3 text-sm text-white/85"><iconify-icon icon="solar:check-circle-linear" class="text-turmeric-light mt-0.5" width="18"></iconify-icon>Assorted Breads &amp; Rice</li>
+                        <li class="flex items-start gap-3 text-sm text-white/85"><iconify-icon icon="solar:check-circle-linear" class="text-turmeric-light mt-0.5" width="18"></iconify-icon>2 Sweets</li>
+                    </ul>
+                    <a href="#book" class="w-full block text-center py-3 px-4 rounded-xl bg-white text-maroon-dark font-medium hover:bg-sand transition-colors">Select Popular</a>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-sand-dark shadow-sm flex flex-col">
+                    <h3 class="text-xl font-semibold text-ink mb-2 font-display">Premium</h3>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-semibold text-ink">₹2999</span>
+                        <span class="text-ink/50 text-sm">/ plate</span>
+                    </div>
+                    <p class="text-ink/60 text-sm mb-6 pb-6 border-b border-sand-dark">The complete Vaibhav experience, on-site.</p>
+                    <ul class="space-y-4 flex-1 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>Unlimited Starters</li>
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>Multiple Live Counters</li>
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>Custom Menu Design</li>
+                        <li class="flex items-start gap-3 text-sm text-ink/80"><iconify-icon icon="solar:check-circle-linear" class="text-ink/30 mt-0.5" width="18"></iconify-icon>Dessert &amp; Beverage Counter</li>
+                    </ul>
+                    <a href="#book" class="w-full block text-center py-3 px-4 rounded-xl border border-sand-dark text-ink font-medium hover:bg-sand transition-colors">Select Premium</a>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#book" class="inline-flex items-center gap-2 text-maroon-dark font-medium border-b border-maroon-dark pb-0.5 hover:text-maroon hover:border-maroon transition-colors">
+                    Request a Custom Quote <iconify-icon icon="solar:arrow-right-linear" width="16"></iconify-icon>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-16 bg-white border-b border-sand-dark">
+        <div class="px-6 mb-10 max-w-7xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-semibold text-maroon-dark font-display">Our Gallery</h2>
+        </div>
+        <div class="flex gap-4 overflow-x-auto hide-scrollbar px-6 pb-8 snap-x max-w-[1400px] mx-auto">
+            <div class="min-w-[280px] h-[350px] md:min-w-[350px] snap-center relative rounded-2xl overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80" alt="A spread of dishes at Vaibhav Restaurant" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="min-w-[280px] h-[350px] md:min-w-[350px] snap-center relative rounded-2xl overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1530103862676-de8892435e16?auto=format&fit=crop&w=800&q=80" alt="Dining area at Vaibhav Restaurant" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="min-w-[280px] h-[350px] md:min-w-[350px] snap-center relative rounded-2xl overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1542314831-c6a4d14c2b9a?auto=format&fit=crop&w=800&q=80" alt="Freshly prepared dish at Vaibhav Restaurant" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="min-w-[280px] h-[350px] md:min-w-[350px] snap-center relative rounded-2xl overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Guests dining at Vaibhav Restaurant" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-24 px-6 bg-sand relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+            <div class="lg:col-span-5 space-y-10">
+                <div>
+                    <h2 class="font-display text-3xl font-semibold text-maroon-dark mb-2">Customer Reviews</h2>
+                    <p class="text-ink/60 text-sm">See what our guests say about our food, hall and delivery.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-sand-dark shadow-sm flex items-center gap-6">
+                    <div class="text-center">
+                        <div class="text-5xl font-semibold text-maroon-dark font-display">4.6</div>
+                        <div class="flex gap-0.5 text-turmeric my-2 justify-center">
+                            <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold" width="16" class="opacity-50"></iconify-icon>
+                        </div>
+                        <div class="text-xs text-ink/50 font-medium">Google Reviews</div>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                        <div class="flex items-center gap-2 text-xs text-ink/50">
+                            <span>5</span>
+                            <div class="flex-1 h-2 bg-sand rounded-full overflow-hidden"><div class="h-full bg-turmeric w-[75%] rounded-full"></div></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-ink/50">
+                            <span>4</span>
+                            <div class="flex-1 h-2 bg-sand rounded-full overflow-hidden"><div class="h-full bg-turmeric w-[18%] rounded-full"></div></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-ink/50">
+                            <span>3</span>
+                            <div class="flex-1 h-2 bg-sand rounded-full overflow-hidden"><div class="h-full bg-turmeric w-[4%] rounded-full"></div></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-ink/50">
+                            <span>2</span>
+                            <div class="flex-1 h-2 bg-sand rounded-full overflow-hidden"><div class="h-full bg-turmeric w-[2%] rounded-full"></div></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-ink/50">
+                            <span>1</span>
+                            <div class="flex-1 h-2 bg-sand rounded-full overflow-hidden"><div class="h-full bg-turmeric w-[1%] rounded-full"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-sand-dark shadow-sm">
+                    <h3 class="text-lg font-semibold text-ink mb-4 font-display">Write a Review</h3>
+                    <form id="reviewForm" onsubmit="return showSuccessMessage(event, 'reviewForm', 'reviewSuccess')" class="space-y-4">
+                        <div>
+                            <label for="reviewName" class="sr-only">Your Name</label>
+                            <input id="reviewName" type="text" required placeholder="Your Name" class="w-full bg-sand border border-sand-dark rounded-xl px-4 py-2.5 text-ink text-sm focus:outline-none focus:ring-2 focus:ring-maroon focus:border-transparent transition-all">
+                        </div>
+                        <div>
+                            <span class="text-xs font-medium text-ink/50 mb-1 block">Rating</span>
+                            <div class="flex gap-1 text-turmeric">
+                                <iconify-icon icon="solar:star-bold" width="24"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="24"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="24"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="24"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="24"></iconify-icon>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="reviewText" class="sr-only">Share your experience</label>
+                            <textarea id="reviewText" required placeholder="Share your experience..." rows="3" class="w-full bg-sand border border-sand-dark rounded-xl px-4 py-2.5 text-ink text-sm focus:outline-none focus:ring-2 focus:ring-maroon focus:border-transparent transition-all resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-maroon text-white font-medium py-2.5 rounded-xl hover:bg-maroon-dark transition-colors text-sm">
+                            Submit Review
+                        </button>
+                    </form>
+
+                    <div id="reviewSuccess" class="hidden text-center py-6">
+                        <div class="w-12 h-12 bg-[#2F7A3D]/10 text-[#2F7A3D] rounded-full flex items-center justify-center mx-auto mb-3">
+                            <iconify-icon icon="solar:check-circle-linear" width="24"></iconify-icon>
+                        </div>
+                        <h4 class="font-semibold text-ink">Thank you!</h4>
+                        <p class="text-xs text-ink/50 mt-1">Your review has been submitted and is pending moderation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-ink">Latest Reviews</span>
+                    <select class="text-xs bg-transparent text-ink/50 font-medium focus:outline-none cursor-pointer">
+                        <option>Most Recent</option>
+                        <option>Highest Rated</option>
+                    </select>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-sand-dark shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex gap-3 items-center">
+                            <div class="w-10 h-10 bg-sand rounded-full flex items-center justify-center text-maroon-dark font-semibold text-sm">KV</div>
+                            <div>
+                                <p class="text-sm font-semibold text-ink">Ketan Vasoya</p>
+                                <p class="text-xs text-ink/50">Booked Party Hall</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-0.5 text-turmeric">
+                            <iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
+                        </div>
+                    </div>
+                    <p class="text-sm text-ink/70 leading-relaxed">Booked the hall for my son's birthday and the whole evening went smoothly. Food was hot and fresh right through the party.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-sand-dark shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex gap-3 items-center">
+                            <div class="w-10 h-10 bg-sand rounded-full flex items-center justify-center text-maroon-dark font-semibold text-sm">FS</div>
+                            <div>
+                                <p class="text-sm font-semibold text-ink">Foram Shah</p>
+                                <p class="text-xs text-ink/50">Restaurant Dine-in</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-0.5 text-turmeric">
+                            <iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-linear" width="14"></iconify-icon>
+                        </div>
+                    </div>
+                    <p class="text-sm text-ink/70 leading-relaxed">The Kathiyawadi thali is unlimited and genuinely tasty, not just filling. Good place to bring the whole family on a Sunday.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-sand-dark shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex gap-3 items-center">
+                            <div class="w-10 h-10 bg-sand rounded-full flex items-center justify-center text-maroon-dark font-semibold text-sm">RO</div>
+                            <div>
+                                <p class="text-sm font-semibold text-ink">Rajesh Odedra</p>
+                                <p class="text-xs text-ink/50">Bulk Catering</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-0.5 text-turmeric">
+                            <iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon><iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
+                        </div>
+                    </div>
+                    <p class="text-sm text-ink/70 leading-relaxed">Ordered the Popular package for a family function of around 100 guests. The live counter was a hit and nothing ran out all evening.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Main Booking / Request Form -->
+    <section id="book" class="py-24 px-6 bg-white border-b border-sand-dark">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="font-display text-3xl md:text-4xl font-semibold text-maroon-dark mb-3">Make a Request</h2>
+                <p class="text-ink/60 text-sm">Fill out the form below to reserve a table, book the party hall, or request a catering quote.</p>
+            </div>
+
+            <div class="bg-sand p-8 md:p-10 rounded-3xl border border-sand-dark shadow-sm relative overflow-hidden">
+
+                <form method="POST" action="save_booking.php" id="mainBookingForm" class="space-y-6 relative z-10">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div class="space-y-2">
+                            <label for="fullName" class="text-xs font-semibold text-ink/70">Full Name *</label>
+                            <div class="relative">
+                                <input id="fullName" type="text" name="full_name" required
+                                    class="w-full bg-white border border-sand-dark rounded-xl px-4 py-3 pl-10 text-ink text-sm focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-all">
+                                <iconify-icon icon="solar:user-linear" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink/40" width="18"></iconify-icon>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="phone" class="text-xs font-semibold text-ink/70">Phone Number *</label>
+                            <div class="relative">
+                                <input id="phone" type="tel" name="phone" required
+                                    class="w-full bg-white border border-sand-dark rounded-xl px-4 py-3 pl-10 text-ink text-sm focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-all">
+                                <iconify-icon icon="solar:phone-linear" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink/40" width="18"></iconify-icon>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="email" class="text-xs font-semibold text-ink/70">Email (Optional)</label>
+                            <div class="relative">
+                                <input id="email" type="email" name="email"
+                                    class="w-full bg-white border border-sand-dark rounded-xl px-4 py-3 pl-10 text-ink text-sm focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-all">
+                                <iconify-icon icon="solar:letter-linear" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink/40" width="18"></iconify-icon>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="serviceType" class="text-xs font-semibold text-ink/70">Service Type *</label>
+                            <div class="relative">
+                                <select id="serviceType" name="service_type" required
+                                    class="w-full bg-white border border-sand-dark rounded-xl px-4 py-3 pl-10 text-ink text-sm focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-all appearance-none cursor-pointer">
+                                    <option value="">Select a service</option>
+                                    <option value="table">Table Reservation</option>
+                                    <option value="party-hall">Party Hall Booking</option>
+                                    <option value="catering">Bulk Order / Catering</option>
+                                </select>
+                                <iconify-icon icon="solar:clipboard-list-linear" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink/40" width="18"></iconify-icon>
+                                <iconify-icon icon="solar:alt-arrow-down-linear" class="absolute right-4 top-1/2 -translate-y-1/2 text-ink/40 pointer-events-none" width="16"></iconify-icon>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="eventDate" class="text-xs font-semibold text-ink/70">Date *</label>
+                            <input id="eventDate" type="date" name="event_date" required
+                                class="w-full bg-white border border-sand-dark rounded-xl px-4 py-3 text-ink text-sm focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-all">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="peopleCount" class="text-xs font-semibold text-ink/70">Number of People *</label>
+                            <div class="relative">
+                                <input id="peopleCount" type="number" name="people_count" min="1" required
+                                    class="w-full bg-white border border-sand-dark rounded-xl px-4 py-3 pl-10 text-ink text-sm focus:outline-none focus:border-maroon focus:ring-1 focus:ring-maroon transition-all">
+                                <iconify-icon icon="solar:users-group-rounded-linear" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink/40" width="18"></iconify-icon>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="message" class="text-xs font-semibold text-ink/70">Message / Special Requirements</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full bg-white border border-sand-dark rounded-xl px-4 py-3 text-ink text-sm focus:outline-none focus:ring-2 focus:ring-maroon focus:border-transparent transition-all resize-none"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-maroon text-white font-medium py-4 rounded-xl hover:bg-maroon-dark transition-colors shadow-lg shadow-maroon/10 flex items-center justify-center gap-2 group">
+                        Submit Request
+                        <iconify-icon icon="solar:arrow-right-linear" class="group-hover:translate-x-1 transition-transform" width="18"></iconify-icon>
+                    </button>
+
+                </form>
+
+                <div id="bookingSuccess" class="hidden absolute inset-0 bg-sand z-20 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 bg-[#2F7A3D]/10 text-[#2F7A3D] rounded-full flex items-center justify-center mb-4">
+                        <iconify-icon icon="solar:check-circle-bold" width="32"></iconify-icon>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-ink mb-2 font-display">Request Received!</h3>
+                    <p class="text-ink/60 max-w-sm mb-6">Thank you for your interest. Our team will contact you shortly to confirm.</p>
+                    <button type="button" onclick="document.getElementById('bookingSuccess').classList.add('hidden'); document.getElementById('mainBookingForm').style.display = 'block'; document.getElementById('mainBookingForm').reset();" class="px-6 py-2.5 bg-sand-dark text-ink text-sm font-medium rounded-xl hover:bg-sand-dark/70 transition-colors">
+                        Make another request
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-ink pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div class="space-y-4">
+                <a href="#" class="font-display text-xl font-semibold text-white flex items-center gap-2">
+                    <iconify-icon icon="solar:leaf-bold" width="22" class="text-turmeric"></iconify-icon>
+                    Vaibhav Restaurant
+                </a>
+                <p class="text-white/50 text-sm leading-relaxed">
+                    Multi-cuisine family dining, a banquet hall, and doorstep delivery — proudly serving Khambhalia.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-white font-medium text-sm">Contact Info</h4>
+                <div class="space-y-3 text-sm text-white/50">
+                    <a href="tel:+919876543210" class="flex items-center gap-3 hover:text-white transition-colors">
+                        <iconify-icon icon="solar:phone-linear" width="18"></iconify-icon>
+                        +91 98765 43210
+                    </a>
+                    <a href="mailto:hello@vaibhavrestaurant.in" class="flex items-center gap-3 hover:text-white transition-colors">
+                        <iconify-icon icon="solar:letter-linear" width="18"></iconify-icon>
+                        hello@vaibhavrestaurant.in
+                    </a>
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:map-point-linear" width="18" class="mt-0.5 shrink-0"></iconify-icon>
+                        <!-- TODO: swap in the exact address from the restaurant's Google Maps listing -->
+                        <span>Khambhalia,<br>Devbhumi Dwarka, Gujarat</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-white font-medium text-sm">Business Hours</h4>
+                <div class="space-y-2 text-sm text-white/50">
+                    <div class="flex justify-between"><span>Lunch (All Days)</span> <span>11:00 AM - 3:30 PM</span></div>
+                    <div class="flex justify-between"><span>Dinner (All Days)</span> <span>7:00 PM - 11:00 PM</span></div>
+                    <div class="pt-2 text-turmeric text-xs font-medium">Also Delivering Daily via Zomato</div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-white font-medium text-sm">Location</h4>
+                <div class="w-full h-32 bg-white/5 rounded-xl overflow-hidden border border-white/10 relative group">
+                    <!-- TODO: swap for the exact place embed once the Maps listing details are confirmed -->
+                    <iframe src="https://www.google.com/maps?q=Vaibhav+Restaurant+Khambhalia+Gujarat&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(1) opacity(0.85);" loading="lazy"></iframe>
+                    <a href="https://share.google/5Jl5XQDM6RDHuhrGr" target="_blank" rel="noopener" class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm text-white text-sm font-medium gap-2">
+                        Get Directions
+                        <iconify-icon icon="solar:map-arrow-up-linear" width="16"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-white/40 text-xs">© 2026 Vaibhav Restaurant. All rights reserved.</p>
+            <div class="flex gap-4 text-xs text-white/40">
+                <a href="#" class="hover:text-white/70 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white/70 transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+function showSuccessMessage(event, formId, messageId) {
+    event.preventDefault();
+    document.getElementById(formId).style.display = 'none';
+    document.getElementById(messageId).classList.remove('hidden');
+    return false;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const bookingForm = document.getElementById('mainBookingForm');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('bookingSuccess').classList.remove('hidden');
+            const formData = new FormData(this);
+            fetch('save_booking.php', { method: 'POST', body: formData })
+                .catch(err => console.log('Submission error:', err));
+        });
+    }
+
+    const menuBtn = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    const tabs = document.querySelectorAll('.menu-tab');
+    const panels = document.querySelectorAll('.menu-panel');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('is-active'));
+            tab.classList.add('is-active');
+            const cat = tab.dataset.cat;
+            panels.forEach(panel => {
+                panel.classList.toggle('hidden', panel.dataset.cat !== cat);
+            });
+        });
+    });
+});
+</script>
+
+</body>
+</html>
